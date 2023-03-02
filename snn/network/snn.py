@@ -17,7 +17,7 @@ class SNN:
 
   def setup_layer(self, num_neurons):
     layer_neurons = np.array([])
-    for x in range(num_neurons):
+    for _ in range(num_neurons):
       input_weights = len(self.layers[-1]) if len(self.layers) > 0 else num_neurons
       layer_neurons = np.append(layer_neurons, self.neuronClass(input_weights))
     self.layers.append(layer_neurons)
@@ -34,7 +34,7 @@ class SNN:
 
   def solve(self, input):
     previous_layer = np.array(input)
-    for (i, layer) in enumerate(self.layers):
+    for layer in self.layers:
       new_previous_layer = np.array([])
       for neuron in layer:
         new_previous_layer = np.append(new_previous_layer, neuron.solve(previous_layer))

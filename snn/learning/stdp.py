@@ -26,10 +26,11 @@ class STDP(LearningMethod):
   def update(self, layers):
     for layer in layers:
       for neuron in layer:
-        if (not self.is_setup):
+        if not self.is_setup:
           self.setup(neuron)
-        correlated_adjustment = self.adjustment if neuron.refractoryTime is 0 else -self.adjustment
+        correlated_adjustment = self.adjustment if neuron.refractoryTime == 0 else -self.adjustment
         neuron.weights = self.update_weights(neuron, correlated_adjustment)
         neuron.trace = self.update_trace(neuron)
-    if (not self.is_setup): self.is_setup = True
+    if (not self.is_setup):
+      self.is_setup = True
     self.time = self.time + 1

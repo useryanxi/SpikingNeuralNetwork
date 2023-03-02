@@ -7,6 +7,7 @@ Leaky Integrate and Fire neuron model
 class LeakyIntegrateAndFireNeuron(Neuron):
   def __init__(self, weights=0):
     super(self.__class__, self).__init__(weights)
+    self.type = "Leaky Integrate and Fire"
     self.degradation = 0.9
     self.refractoryTime = 0
 
@@ -21,5 +22,6 @@ class LeakyIntegrateAndFireNeuron(Neuron):
     else:
       self.value = self.calculate_potential(inputs)
     self.fire()
-    if self.fired: self.refractoryTime = 2
+    if self.fired:
+      self.refractoryTime = 2
     return self.fired
