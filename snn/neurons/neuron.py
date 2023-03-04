@@ -19,8 +19,9 @@ class Neuron:
             [self.init_weight(weights) for _ in range(weights)], dtype="float64"
         )
 
-    def __str__(self) -> str:
-        return f"Neuron {self.type}: [info missing]"
+    def __repr__(self) -> str:
+        # return f"Neuron {self.type}: [I:{self.input}, O:{self.output}, V:{self.value}, T:{self.threshold}, P:{self.potential}, W:{self.weights}]"
+        return f"Neuron {self.type}: [I:{self.input}, O:{self.output}, V:{self.value}, T:{self.threshold}, P:{self.potential}]"
 
     def fire(self):
         self.fired = self.value > self.threshold

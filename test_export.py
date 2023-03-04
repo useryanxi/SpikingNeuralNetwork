@@ -6,9 +6,10 @@ import imageio.v2 as imageio
 import os
 from rf import rf
 from encode import encode
+import pickle as pk
 
 
-net = SNN(784, [28, 28, 10, 10], 10, LeakyIntegrateAndFireNeuron, STDP())
+net = SNN(784, [], 10, LeakyIntegrateAndFireNeuron, STDP())
 
 path = r"./mnist_png/training"
 counter = int(input("How many loops : "))
@@ -25,15 +26,9 @@ for _ in range(counter):
             train = np.array(encode(rf(imageio.imread(img_path)), T=T))
             for t in range(len(train[0])):
                 net.solve(list(train[:, t]))
-            if i % (n_files / 10) == int(n_files / 10) - 1:
+            if i>0 and i % (n_files / 10) == 0:
                 print(f"Done at {i * 100 / n_files:.2f}%")
 
-# Weights
-print("Weights:")
-for i, layer in enumerate(net.layers):
-    if i == 0:
-        print("Input", layer[0].weights)
-    elif layer is net.layers[-1]:
-        print("Output", layer[0].weights)
-    else:
-        print(f"Hidden layer {i}", layer[0].weights)
+with open("snn.pickle", "wb") as file:
+    pk.dump(net, file)
+    print("Export Done")

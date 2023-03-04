@@ -3,9 +3,7 @@ from numpy import interp
 from math import ceil
 
 
-def encode(pot, pixel_x=28):
-    # Training time for every image
-    T = 350
+def encode(pot, pixel_x=28, T=350):
     # initializing spike train
     train = []
     for l in range(pixel_x):

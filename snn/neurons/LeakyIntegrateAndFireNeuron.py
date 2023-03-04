@@ -12,6 +12,8 @@ class LeakyIntegrateAndFireNeuron(Neuron):
         self.type = "Leaky Integrate and Fire"
         self.degradation = 0.9
         self.refractoryTime = 0
+        self.refractoryTimeDecrement = 1
+        self.refractoryTimeReset = 2
 
     def calculate_potential(self, inputs):
         self.potential = (
@@ -22,10 +24,10 @@ class LeakyIntegrateAndFireNeuron(Neuron):
     def solve(self, inputs):
         self.inputs = inputs
         if self.refractoryTime > 0:
-            self.refractoryTime = self.refractoryTime - 1
+            self.refractoryTime = self.refractoryTime - self.refractoryTimeDecrement
         else:
             self.value = self.calculate_potential(inputs)
         self.fire()
         if self.fired:
-            self.refractoryTime = 2
+            self.refractoryTime = self.refractoryTimeReset
         return self.fired

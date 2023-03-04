@@ -11,7 +11,7 @@ def rf(inp, pixel_x=28):
     w = [
         [sca4, sca3, sca2, sca3, sca4],
         [sca3, sca2, sca1, sca2, sca3],
-        [sca2, sca1, 1, sca1, sca2],
+        [sca2, sca1, 1.00, sca1, sca2],
         [sca3, sca2, sca1, sca2, sca3],
         [sca4, sca3, sca2, sca3, sca4],
     ]
