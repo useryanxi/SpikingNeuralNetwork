@@ -49,3 +49,14 @@ class SNN:
             previous_layer = new_previous_layer
         self.adjust_weights()
         return previous_layer
+    
+    def test(self, input):
+        previous_layer = np.array(input)
+        for layer in self.layers:
+            new_previous_layer = np.array([])
+            for neuron in layer:
+                new_previous_layer = np.append(
+                    new_previous_layer, neuron.solve(previous_layer)
+                )
+            previous_layer = new_previous_layer
+        return previous_layer
