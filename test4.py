@@ -5,7 +5,7 @@ import numpy as np
 import imageio.v2 as imageio
 import os
 from rf import rf
-from encode import encode
+from encode import encode, encode_bin
 import time
 
 img_time = True
@@ -16,7 +16,7 @@ net = SNN(784, [28, 28, 10, 10], 10, LeakyIntegrateAndFireNeuron, STDP())
 
 counter = int(input("How many loops : "))
 img_num = int(input("How many img : "))
-T = int(input("Time scale : "))
+T = 28 * 28 * 8
 
 # Train
 t_train_b = time.time()
@@ -30,7 +30,7 @@ for _ in range(counter):
             img_path = os.path.join(os.path.join(path, folder), img)
             if img_time:
                 t_conv = time.time()
-            train = np.array(encode(rf(imageio.imread(img_path)), T=T))
+            train = np.array(encode_bin(imageio.imread(img_path), T=T))
             if img_time:
                 img_time = False
                 print(f"Conversion to spike in {time.time() - t_conv}s")
@@ -56,7 +56,7 @@ for folder in os.listdir(path):
     print(f"- Start : '{folder}' with {n_files} files")
     for i, img in enumerate(files):
         img_path = os.path.join(os.path.join(path, folder), img)
-        train = np.array(encode(rf(imageio.imread(img_path)), T=T))
+        train = np.array(encode_bin(rf(imageio.imread(img_path)), T=T))
         if read_time:
             t_read = time.time()
         for t in range(len(train[0])):

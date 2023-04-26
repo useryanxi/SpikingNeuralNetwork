@@ -20,3 +20,22 @@ def encode(pot, pixel_x=28, T=350):
                     time_of_spike += time_period
             train.append(temp)
     return train
+
+# # Not finished
+# def encode_bin(pot, pixel_x=28, T=350):
+#     train = []
+#     for i in pot:
+#         for j in i:
+#             val = [int(i) for i in bin(j).replace("0b", "")]
+#             extra_zeros = (8 - len(val)) * [0] 
+#             val = extra_zeros + val
+#             train += val
+#     return train
+
+# def decode_bin(pot):
+#     total = 0
+#     pos = len(pot) - 1
+#     for i in pot:
+#         total += i * (2 ** pos)
+#         pos -= 1
+#     return total
